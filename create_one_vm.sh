@@ -6,7 +6,7 @@
 
 ip="$1"
 name="$2"
-image="/opt/$name.qcow2"
+image="/opt/openstack/$name.qcow2"
 
 size=100
 qemu-img create -f qcow2 $image  "$size"G
@@ -21,7 +21,8 @@ virt-install \
               --network bridge=br0 \
               --virt-type kvm \
               --graphics none \
-             --extra-args "console=tty0 console=ttyS0,115200 ip=$ip netmask=255.255.255.0 gateway=10.26.17.1" \
+	      --initrd-inject=/tmp/ks.cfg  \
+              --extra-args "ks=file:/ks.cfg console=tty0 console=ttyS0,115200 ip=$ip netmask=255.255.255.0 gateway=10.26.17.1" \
 	      --force
 
 
