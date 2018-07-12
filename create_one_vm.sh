@@ -5,15 +5,15 @@
 
 
 ip="$1"
-
-image="/opt/$2.qcow2"
+name="$2"
+image="/opt/$name.qcow2"
 
 size=100
 qemu-img create -f qcow2 $image  "$size"G
 
 virt-install \
               --connect qemu:///system \
-              --name $ip \
+              --name $2 \
               --memory 4000 \
 	      --vcpus 4   \
               --location /tmp/CentOS-7-x86_64-DVD-1708.iso \
@@ -25,4 +25,4 @@ virt-install \
 	      --force
 
 
-virt-clone -o 10.26.17.80 -n sample  -f /opt/openstack/sample.qcow2  --force
+#virt-clone -o 10.26.17.80 -n sample  -f /opt/openstack/sample.qcow2  --force
